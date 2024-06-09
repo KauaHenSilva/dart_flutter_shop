@@ -1,5 +1,6 @@
+import 'package:dart_flutter_shop/models/product_list.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
-
+import 'package:provider/provider.dart';
 import 'screens/home_page.dart';
 import 'utils/my_routes.dart';
 import 'package:flutter/material.dart';
@@ -14,15 +15,20 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'Shopping App',
-      theme: ThemeData.light(),
-      darkTheme: ThemeData.dark(),
-      themeMode: ThemeMode.system,
-      routes: {
-        MyRoutes.home: (context) => const HomePage(),
-      },
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider(create: (context) => ProductList()),
+      ],
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        title: 'Shopping App',
+        theme: ThemeData.light(),
+        darkTheme: ThemeData.dark(),
+        themeMode: ThemeMode.system,
+        routes: {
+          MyRoutes.home: (context) => const HomePage(),
+        },
+      ),
     );
   }
 }
