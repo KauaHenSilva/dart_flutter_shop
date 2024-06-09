@@ -101,15 +101,22 @@ class MyListProduct extends StatelessWidget {
                   title: Center(child: Text(product.title)),
                   backgroundColor: Colors.black87,
                   trailing: IconButton(
-                    icon: const Icon(Icons.favorite),
-                    onPressed: () {},
+                    icon: value.isFavorite
+                        ? const Icon(Icons.favorite)
+                        : const Icon(Icons.favorite_border_rounded),
+                    onPressed: () {
+                      value.toggleFavorite();
+                    },
                   ),
                   leading: IconButton(
                     icon: const Icon(Icons.shopping_basket_sharp),
                     onPressed: () {},
                   ),
                 ),
-                child: Image.network(product.imageUrl),
+                child: Image.network(
+                  product.imageUrl,
+                  fit: BoxFit.fill,
+                ),
               );
             },
           ),
