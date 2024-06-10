@@ -1,7 +1,7 @@
 import 'package:dart_flutter_shop/models/cart_list.dart';
 import 'package:dart_flutter_shop/models/product_list.dart';
 import 'package:dart_flutter_shop/models/product_model.dart';
-import 'package:dart_flutter_shop/utils/my_routes.dart';
+import 'package:dart_flutter_shop/widgets/my_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -22,8 +22,10 @@ class _HomePageState extends State<HomePage> {
   }
 
   Future<void> _fetch() async {
-    await context.read<ProductList>().getProducts();
-    await context.read<CartList>().fetchCart();
+    await Future.wait([
+      context.read<ProductList>().getProducts(),
+      context.read<CartList>().fetchCart(),
+    ]);
   }
 
   Future<void> _refresh() async {
@@ -38,28 +40,8 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
         appBar: AppBar(
           title: const Text('Shopping'),
-          actions: [
-            IconButton(
-              icon: const Icon(Icons.refresh),
-              onPressed: _refresh,
-            ),
-            Consumer<ProductList>(
-              builder: (context, productList, child) {
-                return IconButton(
-                  icon: productList.products.isEmpty
-                      ? const Icon(Icons.shopping_cart)
-                      : Badge(
-                          label: Text(productList.productLen.toString()),
-                          child: const Icon(Icons.shopping_cart),
-                        ),
-                  onPressed: () {
-                    Navigator.of(context).pushNamed(MyRoutes.cartPage);
-                  },
-                );
-              },
-            ),
-          ],
         ),
+        drawer: const MyDrawer(),
         body: Consumer<ProductList>(
           builder: (context, productList, child) {
             return FutureBuilder(

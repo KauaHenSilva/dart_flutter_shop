@@ -1,4 +1,5 @@
 import 'package:dart_flutter_shop/models/cart_list.dart';
+import 'package:dart_flutter_shop/widgets/my_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -35,27 +36,30 @@ class _CartPageState extends State<CartPage> {
       appBar: AppBar(
         title: const Text('Cart Page'),
       ),
+      drawer: const MyDrawer(),
       body: Consumer<CartList>(
-        builder: (context, cartList, child) => FutureBuilder(
-          future: _productsFuture,
-          builder: (context, snapshot) {
-            switch (snapshot.connectionState) {
-              case ConnectionState.waiting:
-                return const Center(child: CircularProgressIndicator());
-              default:
-                if (snapshot.hasError) {
-                  return Center(child: Text(snapshot.error.toString()));
-                }
+        builder: (context, cartList, child) {
+          return FutureBuilder(
+            future: _productsFuture,
+            builder: (context, snapshot) {
+              switch (snapshot.connectionState) {
+                case ConnectionState.waiting:
+                  return const Center(child: CircularProgressIndicator());
+                default:
+                  if (snapshot.hasError) {
+                    return Center(child: Text(snapshot.error.toString()));
+                  }
 
-                return RefreshIndicator(
-                  onRefresh: _refreshCart,
-                  child: CartScreen(
-                    cartList: cartList,
-                  ),
-                );
-            }
-          },
-        ),
+                  return RefreshIndicator(
+                    onRefresh: _refreshCart,
+                    child: CartScreen(
+                      cartList: cartList,
+                    ),
+                  );
+              }
+            },
+          );
+        },
       ),
     );
   }
