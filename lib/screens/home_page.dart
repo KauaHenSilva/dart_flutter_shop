@@ -43,10 +43,19 @@ class _HomePageState extends State<HomePage> {
               icon: const Icon(Icons.refresh),
               onPressed: _refresh,
             ),
-            IconButton(
-              icon: const Icon(Icons.shopping_cart),
-              onPressed: () {
-                Navigator.of(context).pushNamed(MyRoutes.cartPage);
+            Consumer<ProductList>(
+              builder: (context, productList, child) {
+                return IconButton(
+                  icon: productList.products.isEmpty
+                      ? const Icon(Icons.shopping_cart)
+                      : Badge(
+                          label: Text(productList.productLen.toString()),
+                          child: const Icon(Icons.shopping_cart),
+                        ),
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(MyRoutes.cartPage);
+                  },
+                );
               },
             ),
           ],
