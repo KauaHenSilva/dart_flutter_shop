@@ -2,12 +2,16 @@ import 'package:dart_flutter_shop/models/cart_list.dart';
 import 'package:dart_flutter_shop/models/order_list.dart';
 import 'package:dart_flutter_shop/models/product_list.dart';
 import 'package:dart_flutter_shop/screens/cart_page.dart';
+import 'package:dart_flutter_shop/screens/form_product_page.dart';
 import 'package:dart_flutter_shop/screens/manage_page.dart';
 import 'package:dart_flutter_shop/screens/order_page.dart';
+import 'utils/my_routes.dart';
+import 'screens/home_page.dart';
+
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
-import 'screens/home_page.dart';
-import 'utils/my_routes.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:flutter/material.dart';
 
 Future<void> main() async {
@@ -27,6 +31,13 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(create: (context) => OrderList()),
       ],
       child: MaterialApp(
+        supportedLocales: const [
+          ...FormBuilderLocalizations.supportedLocales,
+        ],
+        localizationsDelegates: const [
+          ...GlobalMaterialLocalizations.delegates,
+          FormBuilderLocalizations.delegate,
+        ],
         debugShowCheckedModeBanner: false,
         title: 'Shopping App',
         theme: ThemeData.light(),
@@ -37,6 +48,7 @@ class MyApp extends StatelessWidget {
           MyRoutes.cartPage: (context) => const CartPage(),
           MyRoutes.order: (context) => const OrderPage(),
           MyRoutes.manage: (context) => const ManagePage(),
+          MyRoutes.formProduct: (context) => const FormProductPage(),
         },
       ),
     );

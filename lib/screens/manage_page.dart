@@ -1,4 +1,5 @@
 import 'package:dart_flutter_shop/models/product_list.dart';
+import 'package:dart_flutter_shop/utils/my_routes.dart';
 import 'package:dart_flutter_shop/widgets/my_drawer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -88,7 +89,12 @@ class Page extends StatelessWidget {
                   ),
                   IconButton(
                     icon: const Icon(Icons.edit),
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(
+                        MyRoutes.formProduct,
+                        arguments: product,
+                      );
+                    },
                   )
                 ],
               ),
