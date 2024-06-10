@@ -37,6 +37,13 @@ class MyDrawer extends StatelessWidget {
               Navigator.of(context).pushReplacementNamed(MyRoutes.order);
             },
           ),
+          ListTile(
+            leading: const Icon(Icons.manage_accounts),
+            title: const Text('manage'),
+            onTap: () {
+              Navigator.of(context).pushReplacementNamed(MyRoutes.manage);
+            },
+          ),
         ],
       ),
     );
