@@ -36,6 +36,14 @@ class _ManagePageState extends State<ManagePage> {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Manage Page"),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.add),
+            onPressed: () {
+              Navigator.of(context).pushNamed(MyRoutes.formProduct);
+            },
+          ),
+        ],
       ),
       drawer: const MyDrawer(),
       body: Consumer<ProductList>(
@@ -77,8 +85,10 @@ class Page extends StatelessWidget {
         itemBuilder: (context, index) {
           final product = productList.products[index];
           return ListTile(
+            leading: CircleAvatar(
+              backgroundImage: NetworkImage(product.imageUrl),
+            ),
             title: Text(product.title),
-            subtitle: Text(product.description),
             trailing: SizedBox(
               width: 80,
               child: Row(
