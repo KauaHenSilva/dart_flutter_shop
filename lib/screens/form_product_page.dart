@@ -1,7 +1,9 @@
+import 'package:dart_flutter_shop/models/product_list.dart';
 import 'package:dart_flutter_shop/models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:provider/provider.dart';
 
 class FormProductPage extends StatefulWidget {
   const FormProductPage({super.key});
@@ -40,6 +42,27 @@ class _FormProductPageState extends State<FormProductPage> {
       };
     }
 
+    void saveProduct() {
+      context
+          .read<ProductList>()
+          .addProduct(
+            ProductModel(
+              id: productAlt['id'].toString(),
+              title: productAlt['title'].toString(),
+              description: productAlt['description'].toString(),
+              imageUrl: productAlt['imageUrl'].toString(),
+              price: double.parse(productAlt['price'].toString()),
+            ),
+          )
+          .catchError((error) => showDialog(
+              context: context,
+              builder: (context) => AlertDialog(
+                  title: const Text('Error'), content: Text(error.toString()))))
+          .then(
+            (value) => Navigator.of(context).pop(),
+          );
+    }
+
     return Scaffold(
       appBar: AppBar(
         title: const Text("Form Product"),
@@ -47,7 +70,9 @@ class _FormProductPageState extends State<FormProductPage> {
           IconButton(
             icon: const Icon(Icons.save),
             onPressed: () {
-              if (_formKey.currentState?.saveAndValidate() ?? false) {}
+              if (_formKey.currentState?.saveAndValidate() ?? false) {
+                saveProduct();
+              }
             },
           ),
         ],
