@@ -116,15 +116,21 @@ class MyListProduct extends StatelessWidget {
                   ),
                   leading: Consumer<CartList>(
                     builder: (context, cartList, child) {
+                      Widget icon;
+                      try {
+                        final itemQuantity = cartList.itens[index].quantity;
+                        icon = Badge(
+                          label: Text(
+                            itemQuantity.toString(),
+                          ),
+                          child: const Icon(Icons.shopping_cart),
+                        );
+                      } catch (e) {
+                        icon = const Icon(Icons.shopping_cart);
+                      }
+
                       return IconButton(
-                        icon: cartList.itens.isEmpty
-                            ? const Icon(Icons.shopping_cart)
-                            : Badge(
-                                label: Text(
-                                  cartList.itens[index].quantity.toString(),
-                                ),
-                                child: const Icon(Icons.shopping_cart),
-                              ),
+                        icon: icon,
                         onPressed: () {
                           cartList.addProduct(value);
                         },
