@@ -38,6 +38,9 @@ dependencies:
   flutter_dotenv: ^5.1.0
   http: ^1.2.1
   provider: ^6.1.2
+  flutter_form_builder: ^9.3.0
+  flutter_localization: ^0.2.0
+  form_builder_validators: ^10.0.1
 
 dev_dependencies:
   flutter_test:

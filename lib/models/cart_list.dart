@@ -10,6 +10,14 @@ class CartList extends ChangeNotifier {
   final List<CartModel> _itens = [];
   List<CartModel> get itens => [..._itens];
 
+  double get valueTotal {
+    double total = 0;
+    for (var item in itens) {
+      total += item.price * item.quantity;
+    }
+    return total;
+  }
+
   void addProduct(ProductModel product) async {
     final index = _itens.indexWhere((element) => element.idProd == product.id);
 
