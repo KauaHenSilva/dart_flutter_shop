@@ -35,4 +35,58 @@ class ProductList extends ChangeNotifier {
     notifyListeners();
     return Future.value();
   }
+
+  Future<void> addProduct(ProductModel product) async {
+    if (product.id.isNotEmpty) {
+      final index = _products.indexWhere((element) => element.id == product.id);
+      final productBackup = products[index];
+
+      _products[index] = product;
+      notifyListeners();
+
+      if (index >= 0) {
+        final res = await http.patch(
+          Uri.parse('${MyConst().urlProducts}/${product.id}.json'),
+          body: jsonEncode({
+            'title': product.title,
+            'description': product.description,
+            'imageUrl': product.imageUrl,
+            'price': product.price,
+            'isFavorite': product.isFavorite,
+          }),
+        );
+
+        if (res.statusCode >= 400) {
+          _products[index] = productBackup;
+          throw Exception('Failed to update product');
+        }
+
+        return Future.value();
+      }
+    }
+
+    final res = await http.post(
+      Uri.parse('${MyConst().urlProducts}.json'),
+      body: jsonEncode({
+        'title': product.title,
+        'description': product.description,
+        'imageUrl': product.imageUrl,
+        'price': product.price,
+        'isFavorite': product.isFavorite,
+      }),
+    );
+
+    if (res.statusCode >= 400) throw Exception('Failed to add product');
+    final resData = jsonDecode(res.body);
+    final newProduct = ProductModel(
+      id: resData['name'],
+      title: product.title,
+      description: product.description,
+      imageUrl: product.imageUrl,
+      price: product.price,
+    );
+
+    _products.add(newProduct);
+    notifyListeners();
+  }
 }
