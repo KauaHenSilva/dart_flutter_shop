@@ -1,4 +1,6 @@
+import 'package:dart_flutter_shop/models/cart_list.dart';
 import 'package:dart_flutter_shop/models/product_list.dart';
+import 'package:dart_flutter_shop/screens/cart_page.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 import 'screens/home_page.dart';
@@ -18,6 +20,7 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context) => ProductList()),
+        ChangeNotifierProvider(create: (context) => CartList()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -27,6 +30,7 @@ class MyApp extends StatelessWidget {
         themeMode: ThemeMode.system,
         routes: {
           MyRoutes.home: (context) => const HomePage(),
+          MyRoutes.cartPage: (context) => const CartPage(),
         },
       ),
     );

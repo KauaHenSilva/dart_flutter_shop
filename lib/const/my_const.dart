@@ -4,4 +4,5 @@ class MyConst {
   final url = dotenv.get('FIREBASE_URL');
 
   String get urlProducts => '$url/products';
+  String get urlCart => '$url/cart';
 }
