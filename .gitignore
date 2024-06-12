@@ -44,8 +44,4 @@ app.*.map.json
 .env
 .vscode
 
-# Remove build folder
 build/*
-
-# adicionar a pasta build do web anteriormente excluída
-!build/web
