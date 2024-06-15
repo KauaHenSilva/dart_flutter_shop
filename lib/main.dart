@@ -8,15 +8,13 @@ import 'package:dart_flutter_shop/screens/order_page.dart';
 import 'utils/my_routes.dart';
 import 'screens/home_page.dart';
 
-import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:provider/provider.dart';
 // ignore: depend_on_referenced_packages
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:flutter/material.dart';
 
-Future<void> main() async {
-  await dotenv.load(fileName: '.env');
+void main() {
   runApp(const MyApp());
 }
 
