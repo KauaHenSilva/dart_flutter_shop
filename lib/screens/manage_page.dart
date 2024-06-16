@@ -25,9 +25,7 @@ class _ManagePageState extends State<ManagePage> {
   }
 
   Future<void> _reload() async {
-    setState(() {
-      statusLoading = _fetch();
-    });
+    statusLoading = _fetch();
     await statusLoading;
   }
 
@@ -79,39 +77,37 @@ class Page extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.builder(
-        itemCount: productList.products.length,
-        itemBuilder: (context, index) {
-          final product = productList.products[index];
-          return ListTile(
-            leading: CircleAvatar(
-              backgroundImage: NetworkImage(product.imageUrl),
+    return ListView.builder(
+      itemCount: productList.products.length,
+      itemBuilder: (context, index) {
+        final product = productList.products[index];
+        return ListTile(
+          leading: CircleAvatar(
+            backgroundImage: NetworkImage(product.imageUrl),
+          ),
+          title: Text(product.title),
+          trailing: SizedBox(
+            width: 100,
+            child: Row(
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.delete),
+                  onPressed: () {},
+                ),
+                IconButton(
+                  icon: const Icon(Icons.edit),
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(
+                      MyRoutes.formProduct,
+                      arguments: product,
+                    );
+                  },
+                )
+              ],
             ),
-            title: Text(product.title),
-            trailing: SizedBox(
-              width: 80,
-              child: Row(
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.delete),
-                    onPressed: () {},
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.edit),
-                    onPressed: () {
-                      Navigator.of(context).pushNamed(
-                        MyRoutes.formProduct,
-                        arguments: product,
-                      );
-                    },
-                  )
-                ],
-              ),
-            ),
-          );
-        },
-      ),
+          ),
+        );
+      },
     );
   }
 }
