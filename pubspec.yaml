@@ -1,4 +1,4 @@
-name: dart_flutter_shop
+name: shop
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -44,6 +44,7 @@ dependencies:
   flutter_native_splash: ^2.2.19
   flutter_launcher_icons: "^0.13.1"
 
+  intl: any
 dev_dependencies:
   flutter_test:
     sdk: flutter
