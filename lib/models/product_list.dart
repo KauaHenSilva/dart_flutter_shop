@@ -46,7 +46,7 @@ class ProductList with ChangeNotifier {
       id: hasId ? data['id'] as String : Random().nextDouble().toString(),
       title: data['title'] as String,
       description: data['description'] as String,
-      price: data['price'] as double,
+      price: double.parse(data['price'].toString()),
       imageUrl: data['imageUrl'] as String,
     );
 
