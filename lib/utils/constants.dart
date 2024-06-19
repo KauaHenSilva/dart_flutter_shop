@@ -1,5 +1,5 @@
-class MyConst {
-  final url = const String.fromEnvironment('URL_BASE');
+class Constants {
+  final url = const String.fromEnvironment('url_base');
 
   String get urlProducts => '$url/products';
   String get urlCart => '$url/cart';

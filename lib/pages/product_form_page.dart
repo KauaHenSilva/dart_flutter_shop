@@ -1,18 +1,18 @@
-import 'package:dart_flutter_shop/models/product_list.dart';
-import 'package:dart_flutter_shop/models/product_model.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:provider/provider.dart';
+import 'package:shop/models/product.dart';
+import 'package:shop/models/product_list.dart';
 
-class FormProductPage extends StatefulWidget {
-  const FormProductPage({super.key});
+class ProductFormPage extends StatefulWidget {
+  const ProductFormPage({super.key});
 
   @override
-  State<FormProductPage> createState() => _FormProductPageState();
+  State<ProductFormPage> createState() => _ProductFormPageState();
 }
 
-class _FormProductPageState extends State<FormProductPage> {
+class _ProductFormPageState extends State<ProductFormPage> {
   late Map<String, dynamic> productAlt;
   final _formKey = GlobalKey<FormBuilderState>();
 
@@ -30,7 +30,7 @@ class _FormProductPageState extends State<FormProductPage> {
 
   @override
   Widget build(BuildContext context) {
-    final product = ModalRoute.of(context)?.settings.arguments as ProductModel?;
+    final product = ModalRoute.of(context)?.settings.arguments as Product?;
 
     if (product != null) {
       productAlt = {
@@ -45,14 +45,8 @@ class _FormProductPageState extends State<FormProductPage> {
     void saveProduct() {
       context
           .read<ProductList>()
-          .addProduct(
-            ProductModel(
-              id: productAlt['id'].toString(),
-              title: productAlt['title'].toString(),
-              description: productAlt['description'].toString(),
-              imageUrl: productAlt['imageUrl'].toString(),
-              price: double.parse(productAlt['price'].toString()),
-            ),
+          .saveProduct(
+            productAlt,
           )
           .catchError((error) => showDialog(
               context: context,
